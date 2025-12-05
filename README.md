@@ -4,7 +4,7 @@ AmorPy is a desktop application designed to calculate and create asset amortizat
 
 ## App Release
 
-Download latest app in [release page](https://github.com/bintanngg/AmorPy/releases)
+Download latest app v1.4 in [release page](https://github.com/bintanngg/AmorPy/releases)
 
 ## Main Features v1.4
 
@@ -18,7 +18,15 @@ Download latest app in [release page](https://github.com/bintanngg/AmorPy/releas
 
 ## Application Screenshot
 
-*(You can add application screenshots here to clarify the appearance)*
+***AmorPy UI***
+
+<img width="692" height="578" alt="1" src="https://github.com/user-attachments/assets/6cfa0765-f1d2-4a14-b93c-2877a3345be6" />
+
+#
+
+***Output xlsx File***
+
+<img width="721" height="545" alt="2" src="https://github.com/user-attachments/assets/841840bd-138a-4503-bdf8-419ebf87e120" />
 
 ## Prerequisites
 
