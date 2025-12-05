@@ -6,12 +6,12 @@ AmorPy is a desktop application designed to calculate and create asset amortizat
 
 Download latest app in [release page](https://github.com/bintanngg/AmorPy/releases)
 
-## Main Features v1.3
+## Main Features v1.4
 
-*   **Modern Interface:** Built using `ttkbootstrap` for a modern and responsive look.
+*   **Clean Interface:** Built with Python's standard `tkinter` library for a native and lightweight user experience.
 *   **Two Amortization Methods:** Supports the two most commonly used calculation methods:
-    *   Garis Lurus (Straight-Line)
-    *   Saldo Menurun Ganda (Double Declining Balance)
+    *   Straight-Line
+    *   Double Declining Balance
 *   **Export to Excel:** Save the generated amortization schedule to an `.xlsx` file format with number formatting already adjusted for readability.
 *   **Input Validation:** Equipped with input data validation to ensure accuracy, including flexible date formats and correct numeric values.
 *   **High-Precision Calculation:** Uses the `Decimal` data type for all financial calculations, ensuring accuracy down to the last decimal place.
