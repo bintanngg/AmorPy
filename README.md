@@ -4,7 +4,7 @@ AmorPy is a desktop application designed to calculate and create asset amortizat
 
 ## App Release
 
-Download latest app in [release page](https://github.com/bintanngg/AmorPy/releases)
+Download latest app in [release page](https://github.com/bintanngg/AmorPy/releases) (Choose AmorPy version 1.5)
 
 ## Main Features v1.5
 
@@ -16,18 +16,6 @@ Download latest app in [release page](https://github.com/bintanngg/AmorPy/releas
 *   **Export to Excel:** Save the generated amortization schedule to an `.xlsx` file format with number formatting already adjusted for readability.
 *   **Input Validation:** Equipped with input data validation to ensure accuracy, including flexible date formats and correct numeric values.
 *   **High-Precision Calculation:** Uses the `Decimal` data type for all financial calculations, ensuring accuracy down to the last decimal.
-
-## Application Screenshot
-
-***AmorPy UI***
-
-<img width="692" height="578" alt="1" src="https://github.com/user-attachments/assets/6cfa0765-f1d2-4a14-b93c-2877a3345be6" />
-
-#
-
-***Output xlsx File***
-
-<img width="721" height="545" alt="2" src="https://github.com/user-attachments/assets/841840bd-138a-4503-bdf8-419ebf87e120" />
 
 ## Prerequisites
 
@@ -57,6 +45,18 @@ Before you begin, ensure you have met the following requirements:
     ```sh
     python app.py
     ```
+
+## Application Screenshot
+
+***AmorPy UI***
+
+<img width="694" height="576" alt="1" src="https://github.com/user-attachments/assets/06b0ec21-70bf-47f3-8943-f2394eb4d43e" />
+
+#
+
+***Output xlsx File***
+
+<img width="683" height="282" alt="2" src="https://github.com/user-attachments/assets/aac1c4a3-2321-4ee2-9897-a1637c90bca6" />
 
 ## License
 
