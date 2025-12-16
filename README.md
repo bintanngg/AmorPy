@@ -4,13 +4,14 @@ AmorPy is a desktop application designed to calculate and create asset amortizat
 
 ## App Release
 
-Download latest app in [release page](https://github.com/bintanngg/AmorPy/releases) (version 1.6)
+Download latest app in [release page](https://github.com/bintanngg/AmorPy/releases) (version 1.7)
 
-## Main Features v1.6
+## Main Features v1.7
 
 - **Methods**: Straight-Line, Double Declining Balance, Sum-of-the-Years Digits.
 - **Salvage Value**: Calculate depreciation with residual value.
 - **Charts**: Visual depreciation schedule.
+- **Calendar Picker**: Easy date selection with auto-open and validation.
 - **Decimal Support**: Precise currency input.
 
 ## Prerequisites
@@ -26,9 +27,9 @@ Before you begin, ensure you have met the following requirements:
     git clone https://github.com/bintanngg/AmorPy.git
     ```
 
-2.  **Navigate to the project directory:**
+2.  **Navigate to the latest project directory:**
     ```sh
-    cd AmorPy/v1.6
+    cd AmorPy/v1.7
     ```
 
 3.  **Install the required dependencies:**
