@@ -41,7 +41,7 @@ def parse_flexible_date(date_string: str) -> datetime:
 class AmortizationApp(tk.Tk):
     def __init__(self) -> None:
         super().__init__()
-        self.title("AmorPy v1.7 - Amortization & Depreciation Calculator")
+        self.title("AmorPy - Amortization & Depreciation Calculator")
         
         try:
             script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -129,14 +129,9 @@ class AmortizationApp(tk.Tk):
         self.asset_name_var.set("New Asset")
         self.total_cost_var.set("")
         self.salvage_value_var.set("0")
-        # self.start_date_var and self.end_date_var are now handled by DateEntry widgets directly
-        # but we can still reset them if we keep references to widgets or just recreate them.
-        # Simpler approach: if we keep the vars, DateEntry updates them? 
-        # DateEntry has textvariable support.
         self.start_date_var.set(datetime.now().strftime('%Y-%m-01'))
         self.end_date_var.set((datetime.now() + relativedelta(years=1, days=-1)).strftime(DATE_FORMAT))
         
-        # We need to explicitly set the date on the widgets if they exist
         if hasattr(self, 'start_date_entry'):
             self.start_date_entry.set_date(datetime.now().replace(day=1))
         if hasattr(self, 'end_date_entry'):
@@ -158,12 +153,6 @@ class AmortizationApp(tk.Tk):
         except locale.Error:
             self.format_currency = lambda val: f"{val:,.2f}"
 
-    def _format_currency_input(self, var: tk.StringVar):
-        """Standardizes input to allow for calculations while keeping user friendly formatting."""
-        # This is a simplified version. For a robust app, use a proper diverse validation.
-        # Here we just want to NOT strip decimals.
-        pass 
-
     def _create_input_widgets(self, parent_frame: ttk.Frame) -> None:
         parent_frame.columnconfigure(1, weight=1)
         parent_frame.columnconfigure(3, weight=1)
@@ -184,14 +173,26 @@ class AmortizationApp(tk.Tk):
 
         # Row 2: Dates
         ttk.Label(parent_frame, text="Start Date").grid(row=2, column=0, sticky=tk.W, padx=5, pady=5)
-        self.start_date_entry = DateEntry(parent_frame, textvariable=self.start_date_var, width=12, background='darkblue', foreground='white', borderwidth=2, date_pattern='y-mm-dd', state='readonly')
+        self.start_date_entry = DateEntry(parent_frame, 
+                                          textvariable=self.start_date_var, 
+                                          width=12, 
+                                          background='black', 
+                                          foreground='white', 
+                                          borderwidth=2, 
+                                          date_pattern='y-mm-dd',
+                                          calendar_kwargs={'transient': True})
         self.start_date_entry.grid(row=2, column=1, sticky=tk.EW, padx=5, pady=5)
-        self.start_date_entry.bind('<Button-1>', lambda e: self.start_date_entry.drop_down())
 
         ttk.Label(parent_frame, text="End Date").grid(row=2, column=2, sticky=tk.W, padx=5, pady=5)
-        self.end_date_entry = DateEntry(parent_frame, textvariable=self.end_date_var, width=12, background='darkblue', foreground='white', borderwidth=2, date_pattern='y-mm-dd', state='readonly')
+        self.end_date_entry = DateEntry(parent_frame, 
+                                        textvariable=self.end_date_var, 
+                                        width=12, 
+                                        background='black', 
+                                        foreground='white', 
+                                        borderwidth=2, 
+                                        date_pattern='y-mm-dd',
+                                        calendar_kwargs={'transient': True})
         self.end_date_entry.grid(row=2, column=3, sticky=tk.EW, padx=5, pady=5)
-        self.end_date_entry.bind('<Button-1>', lambda e: self.end_date_entry.drop_down())
 
     def _create_action_buttons(self, parent_frame: ttk.Frame) -> None:
         button_frame = ttk.Frame(parent_frame)
@@ -221,20 +222,21 @@ class AmortizationApp(tk.Tk):
         h_scroll.grid(row=1, column=0, sticky='ew')
 
     def _parse_currency(self, val: str) -> Decimal:
-        # Remove currency symbols and grouping separators, keep decimal point
-        clean = ''.join(c for c in val if c.isdigit() or c == '.' or c == ',')
-        # If both . and , are present, assume last one is decimal
-        if '.' in clean and ',' in clean:
-             if clean.rfind('.') > clean.rfind(','):
-                 clean = clean.replace(',', '') # remove thousands sep
-             else:
-                 clean = clean.replace('.', '').replace(',', '.') # swap
-        elif ',' in clean and '.' not in clean: 
-            # Check if likely a decimal or thousands (simple heuristic: if 2 decimals, likely cents)
-             parts = clean.split(',')
-             if len(parts) == 2 and len(parts[1]) == 2:
-                 clean = clean.replace(',', '.')
-        
+        """Robustly parses a currency string into a Decimal.
+        Handles various formats like '1.000,50', '1,000.50', or '1000.50'.
+        """
+        if not val:
+            return Decimal("0")
+        # Find the last occurrence of a decimal separator
+        last_dot = val.rfind('.')
+        last_comma = val.rfind(',')
+        # Determine which is the decimal separator
+        if last_dot > last_comma: # Format: 1,000.50
+            clean = val.replace(',', '')
+        elif last_comma > last_dot: # Format: 1.000,50
+            clean = val.replace('.', '').replace(',', '.')
+        else: # Format: 1000.50 or 1000
+            clean = val
         if not clean:
              return Decimal("0")
         return Decimal(clean)
@@ -334,9 +336,11 @@ class AmortizationApp(tk.Tk):
             return
             
         try:
-            default_filename = f"Schedule_{self.asset_name_var.get()}.xlsx".replace(" ", "_")
-            self.schedule_df.to_excel(default_filename, index=False)
-            messagebox.showinfo("Success", f"Saved to {default_filename}")
+            asset_name = self.asset_name_var.get()
+            # Sanitize filename to remove invalid characters
+            safe_asset_name = "".join(c for c in asset_name if c.isalnum() or c in (' ', '_')).rstrip()
+            filename = f"Schedule_{safe_asset_name.replace(' ', '_')}.xlsx"
+            self.schedule_df.to_excel(filename, index=False)
+            messagebox.showinfo("Success", f"Saved to {filename}")
         except Exception as e:
             messagebox.showerror("Error", str(e))
-
