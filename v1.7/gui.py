@@ -41,7 +41,7 @@ def parse_flexible_date(date_string: str) -> datetime:
 class AmortizationApp(tk.Tk):
     def __init__(self) -> None:
         super().__init__()
-        self.title("AmorPy v1.6 - Amortization & Depreciation Calculator")
+        self.title("AmorPy v1.7 - Amortization & Depreciation Calculator")
         
         try:
             script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -122,7 +122,7 @@ class AmortizationApp(tk.Tk):
     def _show_about_dialog(self) -> None:
         messagebox.showinfo(
             "About AmorPy",
-            "AmorPy v1.6\n\nFixed logic, improved UI, and charts.\n\nAuthor: Bintang\nGithub: https://github.com/bintanngg"
+            "AmorPy v1.7\n\nAdd Calendar Picker.\n\nAuthor: Bintang\nGithub: https://github.com/bintanngg"
         )
 
     def _clear_form(self) -> None:
